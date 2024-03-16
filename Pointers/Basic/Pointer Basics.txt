@@ -1,0 +1,126 @@
+@@@@@@@Pointer
+A pointer is a variable that stores the memory address of the variable.
+
+@@@@@@@Declaration of pointer variable
+
+Syntax : data_type *pname
+Eg: int *ptr;
+
+@@@@@@@Assigning address to pointer variable
+
+Global and static pointers are automatically initialized to NULL but when we declare an automatic pointer variable it contains grabage value i.e. it may be pointing to any memory location.
+Eg: int *ptr;
+    age = 30;
+    ptr = &age;
+ptr contains the address of the variable age.
+
+@@@@@@@Dereferencing pointer Variable
+
+We can access a variable indirectly using the pointers.For this we will use the indirection operator (*).The indirection operator can be read as value at the address.
+Eg: int a = 90;
+    int *p1 = &a;
+    *p1 = 9;
+    Here a = 9
+*(&a) also gives the value of a.
+If a pointer that contains NULL is dereferenced, the results are implementation dependent.
+
+We have already seen that while declaring a pointer variable, we have to mention the data type. The
+reason is that when we use the indirection operator, the number of bytes retrieved will be different for
+different data types. The value of the pointer only tells the address of starting byte. For example suppose
+we have a pointer ptr which contains the address 2000 and when we write *ptr the compiler knows
+that it has to access the information starting at address 2000. "So the compiler will look at the base
+type of the pointer and will retrieve the information depending on that base type.For example if base
+type is int then 2 bytes information will be retrieved and if base type is float, 4 bytes information will
+be retrieved and so on.
+
+@@@@@@@Pointer Aritmetic
+
+Possible operations:
+1. Addition of an integer to a pointer and increment operation.
+2. Subtraction of an integer from a pointer and decrement operation.
+3. Subtraction of a pointer from another pointer of same type.
+
+Pointer arithmetic is somewhat different from ordinary arithmetic. Here all arithmetic is performed relative
+to the size of base type of pointer. For example if we have an integer pointer pi which contains address
+1000 then on incrementing we get 1002 instead of 1001. This is because the size of int data type is
+2. Similarly on decrementing pi, we will get 998 instead of 999. The expression ( pi+3 ) will represent
+the address 1006.
+
+It is important to note that when we move a pointer somewhere else in memory by incrementing/
+decrementing or adding/subtracting integers then it not necessary that the pointer still points to a variable
+of same data type or a valid memory location. The task of allocating memory locations to variables
+is done by the compiler. We don't know where and in what order it has stored them. We should take
+care that we move the pointers in such a way that they always point to valid memory locations. In
+case of arrays, elements are stored in consecutive order. So this arithmetic is generally applied in arrays.
+
+The arithmetic operations that can never be performed on pointers are - Addition, multiplication, division of two pointers.
+2. Multiplication between pointer and any number.
+3. Division of a pointer by any number.
+4. Addition of float or double values to pointers.
+
+@@@@@@@Precedence Of Dereferencing Operator And /Increment/Decrement Operators
+
+The precedence of * operator and increment/decrement operators, is same and their associativity
+is from right to left.
+
+Eg: x = *ptr++; -> is equivalent to *(ptr++).The increment operator is
+postfix, so first the value of ptr will be used in the expression and then it will be incremented.
+Hence first the integer pointed to ptr will be derefererced and assigned to x and then ptr wi1l be incremented. This is same as:
+x = *ptr;
+ptr = ptr+ 1; 
+
+Suppose value at address 2000 is 25, value at address 2004 is 38, ptr is an integer pointer that contains address 2000, thus value
+of *ptr is 25.
+
+(i) x = *ptr++;
+Value of x = 25, Address contained in ptr = 2004, *ptr = 38
+(ii) x = *++ptr;
+Value of x = 38, Address contained in ptr = 2004, *ptr = 38
+(iii) x = ++*ptr;
+Value of x= 26, Address contained in ptr = 2000, *ptr = 26
+(iv) x = (*ptr)++;
+Value of x = 25, Address contained in ptr = 2000, *ptr = 26
+
+@@@@@@@Pointer Comparisons
+The relational operators ==, != , < , <=, >, >= can be used with pointers. The operators == and != are used to compare two pointers for finding whether they contain same address or not. They will
+be equal only if both are NULL or they contain address of same variable. The use of these operators
+is valid between pointers of same type or between NULL pointer and any other pointer, or between
+void pointer and any other pointer. The relational operators <, >; >=, <= are valid between pointers
+of same type. These operations make sense only when both the pointers point to elements of the same
+array.
+
+@@@@@@@Pointer To pointer
+We can store the address of a pointer variable in some other variable, which is known as a pointer to pointer variable.Pointer to pointer is generally used while passing pointer variables to functions.
+The syntax of declaring a pointer to pointer is as:
+data_type **pptr;
+
+int a = 5;
+int *pa = &a;
+int **ppa = &pa;
+
+@@@@@@@Pointers and One Dimensional Arrays
+1. Elements of an array are stored in consecutive memory locations.
+2. The name of an array is a constant pointer that points to the first element of the array, i.e. it stores
+the address of the first element, also known as the base address of array. '"
+3. According to pointer arithmetic, when a pointer variable is incremented, it points to the next location
+of its base type.
+
+@@@@@@@Subscripting Pointer Variables
+Difference between the name of an array and a pointer variable is that the the name
+of an array is a constant pointer and it will always point to the Oth element of the array. It is not
+a variable, hence we cant assign some other address to it neither can we move it by incrementing
+or decrementing.
+
+arr[4];
+arr = &num;      //Illegal
+arr++; 		//Illegal
+arr = arr -1;  //Illegal
+
+int *ptr;
+ptr = &num;        //Legal
+ptr++; 		  //Legal
+ptrr = ptrr -1;  //Legal
+
+@@@@@@@Pointer to an Array
+We can declare a pointer that can point to the whole array instead of only one element of array. This pointer is useful when talking about multidimensional arrays.
+int (*ptr)[10];
