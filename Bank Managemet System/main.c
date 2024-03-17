@@ -8,6 +8,8 @@ void deposit_amount();
 void check_balance();
 void withdraw_amount();
 void file_write_new_account_data(void);
+void default_menu(void);
+
 
 const char *asterik = "***********************";
 const char *dash = "----------------------------------------------------------------------";
@@ -17,9 +19,19 @@ struct customer_data
 {
     char customer_name[20];
     char customer_dob[10];
-    char customer_address[50];
+    char customer_address[70];
     char customer_account_type[2];
-} cd;
+} c_data;
+
+
+struct amount
+{
+    double deposit_amount;
+    double withdraw_amount;
+    double current_balance;
+    double balance;
+}amnt;
+
 
 int main(void)
 {
@@ -35,6 +47,7 @@ int main(void)
 }
 void menu_display()
 {
+     char temp;
     int choice;
     printf("%s\n", dash);
     printf("%s Bank Management System %s \n", asterik, asterik);
@@ -47,13 +60,13 @@ void menu_display()
     printf("\n%s\n", dash);
     printf("Enter your choice : ");
     scanf("%d", &choice);
+    temp = getchar(); // Flush the input buffer
     printf("%s", dash);
     choice_select(choice);
 }
 
 void choice_select(int choice)
 {
-    int input_check;
     switch (choice)
     {
     case 1:
@@ -73,47 +86,40 @@ void choice_select(int choice)
 
     default:
         printf("\nWrong input.Would you like to try again? ");
-        printf("\nPress 1 to go back to the main menu.Press 0 to terminate : ");
-        scanf("%d", &input_check);
-        if (input_check)
-        {
-            menu_display();
-        }
-        else
-        {
-            exit(0);
-        }
+        default_menu();
     }
 }
 
 void create_new_account()
 {
-    char temp;
     printf("\nEnter your name: ");
-    scanf("%c", &temp);
-    fgets(cd.customer_name, sizeof(cd.customer_name), stdin);
+    fgets(c_data.customer_name, sizeof(c_data.customer_name), stdin);
     printf("\nEnter your Date of birth in (dd-mm-yyyy) format: ");
-    scanf("%c", &temp);
-    fgets(cd.customer_dob, sizeof(cd.customer_dob), stdin);
+    fgets(c_data.customer_dob, sizeof(c_data.customer_dob), stdin);
     printf("\nEnter your permanent address: ");
-    scanf("%c", &temp);
-    fgets(cd.customer_address, sizeof(cd.customer_address), stdin);
+    fgets(c_data.customer_address, sizeof(c_data.customer_address), stdin);
     printf("\nChoose the account type (SA/CR): ");
-    scanf("%c", &temp);
-    fgets(cd.customer_account_type, sizeof(cd.customer_account_type), stdin);
+    fgets(c_data.customer_account_type, sizeof(c_data.customer_account_type), stdin);
+ getchar();
     file_write_new_account_data();
+ 
 }
 void file_write_new_account_data(void)
 {
-    fprintf(customer_file_pt, "\nName: %s", cd.customer_name);
-    fprintf(customer_file_pt, "Date of Birth: %s", cd.customer_dob);
-    fprintf(customer_file_pt, "\nPermanet address: %s", cd.customer_address);
-    fprintf(customer_file_pt, "Account type: %s", cd.customer_account_type);
+    fprintf(customer_file_pt, "\nName: %s", c_data.customer_name);
+    fprintf(customer_file_pt, "Date of Birth: %s", c_data.customer_dob);
+    fprintf(customer_file_pt, "\nPermanet address: %s", c_data.customer_address);
+    fprintf(customer_file_pt, "Account type: %s", c_data.customer_account_type);
 }
 
 void deposit_amount(void)
 {
-    printf("Depositing amount...\n");
+    amnt.deposit_amount = 0;
+    printf("\nEnter the amount to be deposited: ");
+    scanf("%lf",&amnt.deposit_amount);
+    printf("%.2lf has been successfully deposited to your account",amnt.deposit_amount);
+    amnt.current_balance += amnt.deposit_amount;
+    default_menu();
 }
 
 void withdraw_amount()
@@ -123,5 +129,21 @@ void withdraw_amount()
 
 void check_balance()
 {
-    printf("Balance\n");
+    printf("\n%.2f Balance in your account: ",amnt.current_balance);
+    default_menu();
+}
+
+void default_menu(void)
+{
+    int input_check;
+ printf("\nPress 1 to go back to the main menu.Press 0 to terminate : ");
+        scanf("%d", &input_check);
+        if (input_check)
+        {
+            menu_display();
+        }
+        else
+        {
+            exit(0);
+        }
 }
