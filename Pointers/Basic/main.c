@@ -1,7 +1,10 @@
 #include <stdio.h>
 void increment(int x);
-void increment_call_by_val(int *y);
-void calc(int *,int *,int *,int *);
+void increment_call_by_ref(int *y);
+void calc(int *, int *, int *, int *);
+int *mult_calc(int *, int *);
+
+int mult;
 
 int main(void)
 {
@@ -12,6 +15,7 @@ int main(void)
     char a = 'x';
     float num2 = 12.4;
     double num3 = 18.3;
+
 
     /*Pointer Declaration*/
     int *p1 = &num1;
@@ -89,38 +93,48 @@ int main(void)
     printf("After calling the function: %d\n", val);
     /* Call by reference*/
     printf("Before calling the function: %d\n", val);
-    increment_call_by_val(&val);
+    increment_call_by_ref(&val);
     printf("After calling the function: %d\n", val);
 
     /*Returning more than 1 value from a function*/
     int digit_1 = 10;
     int digit_2 = 7;
-    int sum = 0,diff = 0;
-    calc(&digit_1,&digit_2,&sum,&diff);
-    printf("Sum value: %d, Difference Value: %d",sum,diff);
+    int sum = 0, diff = 0;
+    calc(&digit_1, &digit_2, &sum, &diff);
+    printf("Sum value: %d, Difference Value: %d", sum, diff);
 
     /*Function returning pointer*/
+    int *ret_val;
+    ret_val = mult_calc(&digit_1, &digit_2);
+    printf("\nMultiply value: %d", *ret_val);
+
+    /*Passing 1-D array to a function*/
+
     return 0;
 }
 
+/*Function returning pointer*/
+int *mult_calc(int *digit_1, int *digit_2)
+{
+    mult = ((*digit_1) + (*digit_2));
+    return &mult;
+}
 
-
-
-
- void calc(int *digit_1,int *digit_2,int *sum,int *diff)
-  {
+/*Returning more than 1 value from a function*/
+void calc(int *digit_1, int *digit_2, int *sum, int *diff)
+{
     *sum = *digit_1 + *digit_2;
     *diff = *digit_1 - *digit_2;
-  }
+}
 
-
-
-void increment_call_by_val(int *y)
+/* Call by reference*/
+void increment_call_by_ref(int *y)
 {
     (*y)++;
     printf("Inside the function: %d\n", *y);
 }
 
+/* Call by Value*/
 void increment(int x)
 {
     x++;

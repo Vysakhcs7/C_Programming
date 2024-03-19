@@ -124,3 +124,33 @@ ptrr = ptrr -1;  //Legal
 @@@@@@@Pointer to an Array
 We can declare a pointer that can point to the whole array instead of only one element of array. This pointer is useful when talking about multidimensional arrays.
 int (*ptr)[10];
+One of the main applications of the array of pointers is to store multiple strings as an array of pointers to characters.
+char* arr[5]
+    = { "gfg", "geek", "Geek", "Geeks", "GeeksforGeeks" }
+
+@@@@@@@Pointers and Functions
+@@@@@@@Call by value
+Call by Value:
+In call by value, when a function is called, a copy of the actual parameter's value is passed to the formal parameter of the function. This means that changes made to the formal parameter inside the function do not affect the actual parameter outside the function. The following steps occur in call by value:
+
+When the function is called, the value of the actual parameter is copied into the formal parameter.
+Any modifications made to the formal parameter inside the function are confined to the function's scope and do not affect the original value of the actual parameter.
+
+@@@@@@@Call by reference
+In call by reference, the address of the actual parameter is passed to the formal parameter of the function. This allows the function to directly access and modify the value stored at that address. Any changes made to the formal parameter inside the function affect the actual parameter outside the function. The following steps occur in call by reference:
+
+When the function is called, the address of the actual parameter is passed to the formal parameter.
+The function can access the value stored at that address using pointer dereferencing and can modify it directly.
+Modifications made to the formal parameter inside the function affect the value stored at the memory location of the actual parameter, thus affecting the original value outside the function
+
+@@@@@@@returning more than one value from a functon
+You can pass pointers as arguments to the function, and then the function can modify the values pointed to by these pointers. This allows you to effectively return multiple values.
+
+@@@@@@@Function returning pointer
+Syntax:
+data_type *function_name(type1,type2..);
+Eg:
+float *fun(int,char);
+
+@@@@@@@Passing 1-D array to a function
+
