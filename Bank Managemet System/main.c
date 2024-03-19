@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,17 +16,18 @@ void account_search();
 void account_login();
 void login_menu_select(int);
 
+#define MAX_INPUT_SIZE 100
 const char *asterik = "***********************";
 const char *dash = "----------------------------------------------------------------------";
 FILE *customer_file_pt;
 
 struct customer_data
 {
-    char customer_name[20];
-    char customer_dob[10];
-    char customer_address[70];
-    char customer_account_type[2];
-    int customer_account_number;
+    char customer_name[MAX_INPUT_SIZE];
+    char customer_dob[MAX_INPUT_SIZE];
+    char customer_address[MAX_INPUT_SIZE];
+    char customer_account_type[MAX_INPUT_SIZE];
+    char customer_account_number[MAX_INPUT_SIZE];
 } c_data;
 
 struct amount
@@ -74,7 +74,7 @@ void main_menu_select(int choice)
 {
     switch (choice)
     {
-    case 1:
+       case 1:
         create_new_account();
         break;
     case 2:
@@ -162,25 +162,33 @@ void create_new_account()
 {
     printf("\nEnter your name: ");
     fgets(c_data.customer_name, sizeof(c_data.customer_name), stdin);
+    printf("%s",c_data.customer_name);
     printf("\nEnter your Date of birth in (dd-mm-yyyy) format: ");
     fgets(c_data.customer_dob, sizeof(c_data.customer_dob), stdin);
-    printf("\nEnter your permanent address: ");
-    fgets(c_data.customer_address, sizeof(c_data.customer_address), stdin);
+    printf("%s",c_data.customer_dob);
+   printf("\nEnter your permanent address: ");
+   fgets(c_data.customer_address, sizeof(c_data.customer_address), stdin);
+    printf("%s",c_data.customer_address);
     printf("\nChoose the account type (SA/CR): ");
     fgets(c_data.customer_account_type, sizeof(c_data.customer_account_type), stdin);
+    printf("%s",c_data.customer_account_type);
     printf("\nEnter the account number: ");
-    // fgets(c_data.customer_account_number, sizeof(c_data.customer_account_number), stdin);
-    getchar();
-    file_write_new_account_data();
+    fgets(c_data.customer_account_number, sizeof(c_data.customer_account_number), stdin);
+    printf("%s",c_data.customer_account_number);
+
+   file_write_new_account_data();
 }
 void file_write_new_account_data(void)
 {
-    fprintf(customer_file_pt, "\nName: %s", c_data.customer_name);
-    fprintf(customer_file_pt, "Date of Birth: %s", c_data.customer_dob);
-    fprintf(customer_file_pt, "\nPermanent address: %s", c_data.customer_address);
-    fprintf(customer_file_pt, "Account type: %s", c_data.customer_account_type);
-    fprintf(customer_file_pt, "Account type: %d", c_data.customer_account_number);
-    printf("Your account has been created successfully!");
+  fprintf(customer_file_pt,"\n");
+      fprintf(customer_file_pt,"%s\n", dash);
+  fprintf(customer_file_pt, "Name: %s", c_data.customer_name);
+  fprintf(customer_file_pt, "Date of Birth: %s", c_data.customer_dob);
+  fprintf(customer_file_pt, "Permanent address: %s", c_data.customer_address);
+   fprintf(customer_file_pt, "Account type: %s", c_data.customer_account_type);
+   fprintf(customer_file_pt, "Account number: %s", c_data.customer_account_number);
+        fprintf(customer_file_pt,"%s\n", dash);
+    printf("\nYour account has been created successfully!");
     default_menu();
 }
 
