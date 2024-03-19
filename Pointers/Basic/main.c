@@ -1,8 +1,11 @@
 #include <stdio.h>
+void increment(int x);
+    void increment(int *y);
 int main(void)
 {
 
     /*Variable Declaration*/
+    int val = 5;
     int num1 = 30;
     char a = 'x';
     float num2 = 12.4;
@@ -62,4 +65,52 @@ int main(void)
     printf("Value of *pptr =  %u\n", *pptr);
     printf("Value of **pptr =  %.2f\n", **pptr);
     printf("Address of pptr = %u\n", pptr);
+
+    /*Pointer to an array (Array Pointer)*/
+    int array[5] = {1, 2, 3, 4, 5};
+    int(*pta)[5];
+    pta = &array; // pta references the whole array
+
+    printf("Address of pta = %p\n", &pta);
+    printf("Address of the array = %p\n", pta);
+    printf("Address of the first element in the array = %p\n", *pta[0]);
+    printf("Address of the second element in the array = %p\n", *pta + 1);
+    printf("Value of the first element = %d\n", **pta);
+    printf("Value of the first element = %d\n", *pta[0]);
+    printf("Value of the second element = %d\n", **pta + 1);
+    printf("Addres of array + 1 = %d\n", pta + 1); // 5*4 =20
+
+    /*Pointers and Functions*/
+    /* Call by Value*/
+    printf("Before calling the function: %d\n", val);
+   increment(val);
+    printf("After calling the function: %d\n", val);
+
+
+
+int main() {
+    int num = 5;
+
+    printf("Before calling the function: %d\n", num);
+
+    // Call the function by passing the address of num
+    increment(&num);
+
+    printf("After calling the function: %d\n", num);
+
+    return 0;
 }
+
+// Function definition
+void increment(int *x) {
+    (*x)++; // Increment the value stored at the address pointed by x
+    printf("Inside the function: %d\n", *x);
+}
+}
+
+   //Function definition
+    void increment(int x)
+   {
+        x++; // Increment the value of x
+        printf("Inside the function: %d\n", x);
+   }
