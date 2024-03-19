@@ -1,6 +1,8 @@
 #include <stdio.h>
 void increment(int x);
-    void increment(int *y);
+void increment_call_by_val(int *y);
+void calc(int *,int *,int *,int *);
+
 int main(void)
 {
 
@@ -83,34 +85,44 @@ int main(void)
     /*Pointers and Functions*/
     /* Call by Value*/
     printf("Before calling the function: %d\n", val);
-   increment(val);
+    increment(val);
+    printf("After calling the function: %d\n", val);
+    /* Call by reference*/
+    printf("Before calling the function: %d\n", val);
+    increment_call_by_val(&val);
     printf("After calling the function: %d\n", val);
 
+    /*Returning more than 1 value from a function*/
+    int digit_1 = 10;
+    int digit_2 = 7;
+    int sum = 0,diff = 0;
+    calc(&digit_1,&digit_2,&sum,&diff);
+    printf("Sum value: %d, Difference Value: %d",sum,diff);
 
-
-int main() {
-    int num = 5;
-
-    printf("Before calling the function: %d\n", num);
-
-    // Call the function by passing the address of num
-    increment(&num);
-
-    printf("After calling the function: %d\n", num);
-
+    /*Function returning pointer*/
     return 0;
 }
 
-// Function definition
-void increment(int *x) {
-    (*x)++; // Increment the value stored at the address pointed by x
-    printf("Inside the function: %d\n", *x);
-}
+
+
+
+
+ void calc(int *digit_1,int *digit_2,int *sum,int *diff)
+  {
+    *sum = *digit_1 + *digit_2;
+    *diff = *digit_1 - *digit_2;
+  }
+
+
+
+void increment_call_by_val(int *y)
+{
+    (*y)++;
+    printf("Inside the function: %d\n", *y);
 }
 
-   //Function definition
-    void increment(int x)
-   {
-        x++; // Increment the value of x
-        printf("Inside the function: %d\n", x);
-   }
+void increment(int x)
+{
+    x++;
+    printf("Inside the function: %d\n", x);
+}
