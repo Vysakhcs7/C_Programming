@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 void increment(int x);
 void increment_call_by_ref(int *y);
 void calc(int *, int *, int *, int *);
@@ -15,7 +17,6 @@ int main(void)
     char a = 'x';
     float num2 = 12.4;
     double num3 = 18.3;
-
 
     /*Pointer Declaration*/
     int *p1 = &num1;
@@ -109,6 +110,84 @@ int main(void)
     printf("\nMultiply value: %d", *ret_val);
 
     /*Passing 1-D array to a function*/
+
+    /*void pointer */
+    int digit_p = 3;
+    void *vp;
+    vp = &digit_p;
+    printf("\nValue of digit_p : %d", *(int *)vp);
+
+    /*Dynamic Memory allocation */
+
+    /*malloc()*/
+    int *malloc_ptr;
+    int n = 10;
+    malloc_ptr = (int *)malloc(n * sizeof(int));
+    if (malloc_ptr == NULL)
+    {
+        printf("\nMemory allocation failed\n");
+        return 1; // indicate failure
+    }
+    for (int i = 0; i < n; i++)
+    {
+
+        *(malloc_ptr + i) = i;
+        printf("\nMalloc values: %d", *(malloc_ptr + i));
+    }
+    free(malloc_ptr);
+    printf("\n");
+
+    /*calloc()*/
+    int *calloc_ptr;
+    calloc_ptr = (int *)calloc(n, sizeof(int));
+    if (calloc_ptr == NULL)
+    {
+        printf("\nMemory allocation failed\n");
+        return 1; // indicate failure
+    }
+    for (int i = 0; i < n; i++)
+    {
+        *(calloc_ptr + i) = i + (2+i);
+        printf("\nCalloc values: %d", *(calloc_ptr + i));
+    }
+    free(calloc_ptr);
+
+    /*realloc()*/
+    int *realloc_ptr;
+    realloc_ptr = (int *)malloc(n * sizeof(int));
+    if (realloc_ptr == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return 1; // Indicate failure
+    }
+    for (int i = 0; i < n; i++)
+    {
+
+        *(realloc_ptr + i) = i;
+        printf("\nRealloc initial values: %d", *(realloc_ptr + i));
+    }
+    int newSize = 20; // New size of the array
+    realloc_ptr = (int *)realloc(realloc_ptr, newSize * sizeof(int));
+    if (realloc_ptr == NULL)
+    {
+        printf("Memory reallocation failed\n");
+        return 1; // Indicate failure
+    }
+
+    for (int i = n; i < newSize; i++)
+    {
+        *(realloc_ptr + i) = i;
+        printf("\nRealloc resized values: %d", *(realloc_ptr + i));
+    }
+
+    printf("\n");
+    free(realloc_ptr);
+
+    /*free()*/
+     free(realloc_ptr);
+
+   /*Pointers To Functions*/
+ printf("\nAddress of main function: %p\n", (void*)main);
 
     return 0;
 }
