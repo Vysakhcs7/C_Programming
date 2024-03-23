@@ -48,7 +48,7 @@ int main(void)
     printf("Value of p4 = %u\n", p4);
     p1++;
     p2++;
-    // p3++;
+    p3++;
     p4++;
     printf("Updated Value of p1 = %u\n", p1);
     printf("Updated Value of p2 = %u\n", p2);

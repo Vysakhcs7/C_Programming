@@ -1,0 +1,69 @@
+@@@@@Files in C
+
+In C programming, a file is a collection of data stored on a storage medium, typically a disk or other persistent storage device. In the context of C programming, a file represents a sequence of bytes organized in a specific format. Files are used to store data persistently, allowing programs to read from and write to them over multiple runs.
+
+@@@@@Concept Of Buffer
+
+A buffer in computer memory temporarily holds data before writing it to a file. When a file is opened, a buffer is automatically associated with its file pointer. Instead of immediately writing data to the file, it goes to the buffer first. When the buffer fills up, its contents are written to the file. Even when the file is closed, the buffer's contents are written to the file. This process is called "flushing" the buffer. Buffers improve efficiency by reducing the need to access the disk frequently. Without buffers, every byte of data would require accessing the disk, slowing things down. With buffering, data is collected in the buffer and written to the file in chunks, decreasing disk access and improving efficiency.
+
+@@@@@Opening a file
+
+Syntax:
+FILE *fopen(const char *filename, const char *mode);
+"r": Opens the file for reading. The file must exist.
+"w": Opens the file for writing. If the file exists, its contents are overwritten. If the file does not exist, it's created.
+"a": Opens the file for appending. Data is written to the end of the file. If the file does not exist, it's created.
+"r+": Opens the file for both reading and writing. The file must exist.
+"w+": Opens the file for both reading and writing. If the file exists, its contents are overwritten. If the file does not exist, it's created.
+"a+": Opens the file for both reading and appending. Data can be read from the file or written to the end of the file. If the file does not exist, it's created.
+
+Append b to the mode, to open in binary mode.
+Return Value: If successful, fopen() returns a pointer to the FILE structure associated with the opened file. If unsuccessful, it returns NULL, indicating an error.
+
+@@@@@Closing a file
+
+Syntax:
+int fclose(FILE *file_pointer);
+Eg:
+fclose(fptr);
+
+It returns 0 if the file is successfully closed.
+It returns EOF (End-Of-File) if an error occurs while closing the file.(EOF is a constant defined in stdio.h and its value is -1).
+
+@@@@@File I/O operations
+
+Character I/O:
+fgetc() - Read a character from a file.
+fputc() - Write a character to a file.
+getc() - Equivalent to fgetc().
+putc() - Equivalent to fputc().
+
+String I/O:
+fgets() - Read a string from a file.
+fputs() - Write a string to a file.
+
+Integer I/O:
+getw() - Read an integer from a file.
+putw() - Write an integer to a file.
+
+Formatted I/O:
+fscanf() - Read formatted data from a file.
+fprintf() - Write formatted data to a file.
+
+Binary I/O:
+fread() - Read binary data from a file.
+fwrite() - Write binary data to a file.
+
+
+@@@@@Character I/O
+
+fputc()
+
+Syntax:
+int fputc(int character, FILE *file_pointer);
+
+"The fputc() function writes a character to the specified file at the current file position and then increments the position pointer. On success, it returns an integer representing the character written, and on error, it returns EOF, indicating that an error occurred."
+
+
+
+
