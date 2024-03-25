@@ -63,7 +63,54 @@ Syntax:
 int fputc(int character, FILE *file_pointer);
 
 "The fputc() function writes a character to the specified file at the current file position and then increments the position pointer. On success, it returns an integer representing the character written, and on error, it returns EOF, indicating that an error occurred."
+The fgetc() function in C is used to read a single character from a file. It reads the next character from the file pointed to by the file pointer stream and advances the file position indicator for the file.
 
 
+fgetc()
 
+Syntax:
+int fgetc(FILE *stream);
 
+The fgetc() function returns the character read as an unsigned char cast to an int or EOF if the end-of-file or an error occurs.
+
+@@@@@String I/O
+
+fputs()
+
+Syntax:
+int fputs(const char *str, FILE *fptr);
+
+On success, fputs returns a non-negative value.
+On failure, it returns EOF and sets the error indicator on the stream.
+It writes all characters in the string, including the null character at the end ('\0'), to the file.
+fputs is commonly used when you want to write entire strings to a file.
+It's suitable for scenarios where you have a null-terminated string already available and want to write it to a file in a single operation.
+Unlike fprintf, fputs does not support format specifiers for formatting the output. It simply writes the characters as they are in the string.
+If you want to write formatted output, you should use fprintf instead.
+
+fgets()
+
+Syntax:
+char *fgets(const char *str, int n, FILE *fptr);
+
+str: Pointer to the character array where the line read from the file or input stream will be stored.
+n: Maximum number of characters to be read (including the null terminator). This helps prevent buffer overflow.
+stream: Pointer to a FILE object representing the file stream to read from. It can be stdin for reading from the standard input.
+Return Value:
+
+On success, fgets returns the pointer to the string str.
+On failure or when the end of the file is reached, it returns NULL.
+Behavior:
+
+fgets reads characters from the input stream stream and stores them as a string in the buffer pointed to by str.
+It reads at most n - 1 characters from the stream or until a newline character ('\n') is found, whichever comes first.
+If a newline character is read, it is included in the string copied to str.
+If the end-of-file is encountered before any characters have been read, fgets returns NULL and sets the EOF indicator on the stream.
+If an error occurs while reading, it also returns NULL and sets the error indicator on the stream.
+
+fgets is commonly used when you want to read a line of text from a file or from the standard input.
+It's useful for reading user input or processing text files line by line.
+Notes:
+
+The newline character ('\n') is included in the string read by fgets if it is encountered before reaching the maximum number of characters (n - 1).
+If you want to remove the trailing newline character from the string, you can use strcspn or similar functions to find and remove it.

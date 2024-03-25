@@ -16,6 +16,7 @@ void exisiting_account_details();
 void account_search();
 void account_login();
 void login_menu_select(int);
+void header(void);
 //------------------------------------------------------------------------------------------------------------------
 #define MAX_INPUT_SIZE 100
 const char *asterik = "***********************";
@@ -56,9 +57,7 @@ void menu_display()
 {
     char temp;
     int choice;
-    printf("%s\n", dash);
-    printf("%s Bank Management System %s \n", asterik, asterik);
-    printf("%s\n", dash);
+    header();
     printf("1. Create a new account\n");
     printf("2. Account Login\n");
     printf("3. Account search\n");
@@ -72,10 +71,20 @@ void menu_display()
     main_menu_select(choice);
 }
 //------------------------------------------------------------------------------------------------------------------
+void header(void)
+{
+    system("cls");
+    printf("%s\n", dash);
+    printf("%s Bank Management System %s \n", asterik, asterik);
+    printf("%s\n", dash);
+}
+//------------------------------------------------------------------------------------------------------------------
 void main_menu_select(int choice)
 {
+    header();
     switch (choice)
     {
+
     case 1:
         create_new_account();
         break;
@@ -101,6 +110,7 @@ void main_menu_select(int choice)
 //------------------------------------------------------------------------------------------------------------------
 void create_new_account()
 {
+    header();
     printf("\nEnter your name: ");
     fgets(c_data.customer_name, sizeof(c_data.customer_name), stdin);
     printf("%s", c_data.customer_name);
@@ -115,7 +125,7 @@ void create_new_account()
     printf("%s", c_data.customer_account_type);
     printf("\nEnter the account number: ");
     fgets(c_data.customer_account_number, sizeof(c_data.customer_account_number), stdin);
-    printf("%s", c_data.customer_account_number);
+    printf("%s",c_data.customer_account_number);
 
     file_write_new_account_data();
 }
@@ -128,7 +138,7 @@ void file_write_new_account_data(void)
     fprintf(customer_file_pt, "Date of Birth: %s", c_data.customer_dob);
     fprintf(customer_file_pt, "Permanent address: %s", c_data.customer_address);
     fprintf(customer_file_pt, "Account type: %s", c_data.customer_account_type);
-    fprintf(customer_file_pt, "Account number: %s", c_data.customer_account_number);
+    fprintf(customer_file_pt, "Account number: %s",c_data.customer_account_number);
     fprintf(customer_file_pt, "%s\n", dash);
     printf("\nYour account has been created successfully!");
     default_menu();
@@ -136,38 +146,53 @@ void file_write_new_account_data(void)
 //------------------------------------------------------------------------------------------------------------------
 void account_login()
 {
-    char dummy_charctr;
     char temp_acc_no[MAX_INPUT_SIZE];
-    int  temp_choice;
-    printf("%s\n", dash);
-    printf("%s Bank Management System %s \n", asterik, asterik);
-    printf("%s\n", dash);
     printf("\nEnter the account number: ");
-     fgets(temp_acc_no, sizeof(temp_acc_no), stdin);
-    
-   int compare_value = strcmp(c_data.customer_account_number,temp_acc_no);
-   if(compare_value == 0)
-   {
-    printf("\nLogin Successful!!");
-    printf("\n1. Deposit amount\n");
-    printf("2. Withdraw amount\n");
-    printf("3. Check balance\n");
-    printf("4. Update existing account\n");
-    printf("5. Details of existing account\n");
-    printf("\n%s\n", dash);
-    printf("Enter your choice : ");
-    scanf("%d", &temp_choice);
-    printf("%s", dash);
-    login_menu_select(temp_choice);
-   }
-   else{
-     printf("\nLogin Unsuccessful.Please try again");
-      default_menu();
-   }
+    scanf("%s", temp_acc_no);
+
+    customer_file_pt = fopen("Customer Data.txt", "r");
+    if (customer_file_pt == NULL)
+    {
+        printf("Error opening file!\n");
+        // Handle file opening error
+    }
+
+    char line[MAX_INPUT_SIZE];
+    while (fgets(line, sizeof(line), customer_file_pt) != NULL)
+    {
+        // Check if the line contains the account number
+        if (strstr(line, "Account number: ") != NULL)
+        {
+            char acc_no[MAX_INPUT_SIZE];
+            sscanf(line, "Account number: %s", acc_no);
+
+            // Compare the account numbers
+            if (strcmp(acc_no, temp_acc_no) == 0)
+            {
+                printf("\nLogin Successful!!");
+                // Read and process the remaining lines for this account
+                // Parse and display account details
+                printf("\n1. Deposit amount\n");
+                printf("2. Withdraw amount\n");
+                printf("3. Check balance\n");
+                printf("4. Update existing account\n");
+                printf("5. Details of existing account\n");
+                // Prompt for user choice and handle accordingly
+                break; // Exit the loop since account is found
+                default_menu();
+            }
+        }
+    }
+
+    // If loop finishes without finding a matching account number
+    printf("\nLogin Unsuccessful. Please try again\n");
+    default_menu();
 }
+
 //------------------------------------------------------------------------------------------------------------------
 void login_menu_select(int temp_choice)
 {
+    header();
     switch (temp_choice)
     {
     case 1:
@@ -195,6 +220,7 @@ void login_menu_select(int temp_choice)
 //------------------------------------------------------------------------------------------------------------------
 void deposit_amount(void)
 {
+    header();
     amnt.deposit_amount = 0;
     printf("\nEnter the amount to be deposited: ");
     scanf("%lf", &amnt.deposit_amount);
@@ -205,6 +231,7 @@ void deposit_amount(void)
 //------------------------------------------------------------------------------------------------------------------
 void withdraw_amount(void)
 {
+    header();
     int temp_acc_no;
     printf("\nEnter the account number: ");
     scanf("%d", &temp_acc_no);
@@ -225,28 +252,29 @@ void withdraw_amount(void)
 //------------------------------------------------------------------------------------------------------------------
 void check_balance()
 {
+    header();
     printf("\nCurrent balance in your account: %.2f", amnt.current_balance);
     default_menu();
 }
 //------------------------------------------------------------------------------------------------------------------
 void update_account()
 {
-
+    header();
 }
 //------------------------------------------------------------------------------------------------------------------
 void exisiting_account_details()
 {
-    
+    header();
 }
 //------------------------------------------------------------------------------------------------------------------
 void account_search()
 {
-
+    header();
 }
 //------------------------------------------------------------------------------------------------------------------
 void remove_account()
 {
-    
+    header();
 }
 //------------------------------------------------------------------------------------------------------------------
 
