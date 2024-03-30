@@ -112,21 +112,15 @@ void create_new_account()
 {
     header();
     printf("\nEnter your name: ");
-    fgets(c_data.customer_name, sizeof(c_data.customer_name), stdin);
-    printf("%s", c_data.customer_name);
+    fgets(c_data.customer_name, sizeof(c_data.customer_name), stdin);  
     printf("\nEnter your Date of birth in (dd-mm-yyyy) format: ");
-    fgets(c_data.customer_dob, sizeof(c_data.customer_dob), stdin);
-    printf("%s", c_data.customer_dob);
+    fgets(c_data.customer_dob, sizeof(c_data.customer_dob), stdin);   
     printf("\nEnter your permanent address: ");
     fgets(c_data.customer_address, sizeof(c_data.customer_address), stdin);
-    printf("%s", c_data.customer_address);
     printf("\nChoose the account type (SA/CR): ");
     fgets(c_data.customer_account_type, sizeof(c_data.customer_account_type), stdin);
-    printf("%s", c_data.customer_account_type);
     printf("\nEnter the account number: ");
     fgets(c_data.customer_account_number, sizeof(c_data.customer_account_number), stdin);
-    printf("%s",c_data.customer_account_number);
-
     file_write_new_account_data();
 }
 //------------------------------------------------------------------------------------------------------------------
@@ -147,6 +141,7 @@ void file_write_new_account_data(void)
 void account_login()
 {
     char temp_acc_no[MAX_INPUT_SIZE];
+    int temp_choice;
     printf("\nEnter the account number: ");
     scanf("%s", temp_acc_no);
 
@@ -177,9 +172,9 @@ void account_login()
                 printf("3. Check balance\n");
                 printf("4. Update existing account\n");
                 printf("5. Details of existing account\n");
-                // Prompt for user choice and handle accordingly
-                break; // Exit the loop since account is found
-                default_menu();
+                scanf("%d",&temp_choice);
+                login_menu_select(temp_choice);
+                //default_menu();
             }
         }
     }
@@ -224,8 +219,9 @@ void deposit_amount(void)
     amnt.deposit_amount = 0;
     printf("\nEnter the amount to be deposited: ");
     scanf("%lf", &amnt.deposit_amount);
-    printf("%.2lf has been successfully deposited to your account", amnt.deposit_amount);
     amnt.current_balance += amnt.deposit_amount;
+    printf("%.2lf has been successfully deposited to your account", amnt.deposit_amount);
+      fprintf(customer_file_pt, "Name: %s", c_data.customer_name);Deposit: 
     default_menu();
 }
 //------------------------------------------------------------------------------------------------------------------
