@@ -1,0 +1,28 @@
+Structures in C are user-defined data types that allow you to combine different data types under a single name.
+They are used to group related data items of different data types.
+
+struct struct_name {
+    // Member variables
+    data_type1 member1;
+    data_type2 member2;
+    // ...
+    data_typen membern;
+};
+
+Declaring structure variables:
+Using structure tag:
+struct Person {
+    char name[50];
+    int age;
+};
+
+int main() {
+    struct Person person1;
+    struct Person person2;
+}
+With structure declaration:
+struct student
+{
+    char name[20];
+    int roll_no;
+}stu1,stu2;
