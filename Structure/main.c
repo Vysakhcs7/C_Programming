@@ -1,37 +1,28 @@
 #include <stdio.h>
-#include <string.h>
-struct student
+#include <stdint.h>
+
+//#define GPIOA 0x40020000
+
+struct GPIO
 {
-    int rollNo;
-    char name[30];
-    float marks;
+    uint32_t MODER;
+    uint32_t OTYPER;
+    uint32_t OSPEEDER;
+    uint32_t PUPDR;
+    uint32_t IDR;
+    uint32_t ODR;
+    uint32_t BSRR;
+    uint32_t LCKR;
+    uint32_t AFRL;
+    uint32_t AFRH;
 };
 
 int main(void)
 {
-    struct student s1;
-    s1.rollNo = 12;
-    strcpy(s1.name, "Vysakh");
-    s1.marks = 56.7;
-
-    struct student *ptr = &s1;
-
-    printf("Printing Address:\n");
-    printf("s1 - %p\n", &s1);
-    printf("ptr - %p\n",&ptr);
-    printf("s1.rollNo - %p\n", &s1.rollNo);
-    printf("s1.name - %p\n", &s1.name);
-    printf("s1.marks - %p\n", &s1.marks);
-    printf("\nPrinting Values: \n");
-    printf("s1 - %d\n", s1);
-    printf("s1.rollNo - %d\n", s1.rollNo);
-    printf("s1.name - %s\n", s1.name);
-    printf("s1.marks - %f\n", s1.marks);
-    printf("\nPrinting Pointer: \n");
-    printf("Address of ptr - %p\n",&ptr);
-    printf("Value at address ptr - %p\n",ptr);
-    printf("Dereferencing ptr - %d\n",*ptr);
-    printf("Dereferencing ptr to roll no - %d\n",(*ptr).rollNo);
-    printf("Dereferencing ptr to roll no - %d\n",ptr->rollNo);
+    struct GPIO oGPIO;
+    printf("%p\n",oGPIO);
+    printf("%p\n",oGPIO.MODER);
+    printf("%p\n",oGPIO.OTYPER);
+       printf("%p\n",oGPIO.OSPEEDER);
     return 0;
 }
