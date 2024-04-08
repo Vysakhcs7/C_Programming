@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-//#define GPIOA 0x40020000
+#define GPIOA 0x40020000
 
 struct GPIO
 {
@@ -19,7 +19,7 @@ struct GPIO
 
 int main(void)
 {
-    struct GPIO oGPIO;
+    struct GPIO *oGPIO = GPIOA;
     printf("%p\n",oGPIO);
     printf("%p\n",oGPIO.MODER);
     printf("%p\n",oGPIO.OTYPER);
