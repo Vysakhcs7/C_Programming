@@ -1,28 +1,66 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define GPIOA 0x40020000
+// #define STR
+// #define STR_PAD
+#define STR_PACKET
 
-struct GPIO
+#ifdef STR
+typedef struct
 {
-    uint32_t MODER;
-    uint32_t OTYPER;
-    uint32_t OSPEEDER;
-    uint32_t PUPDR;
-    uint32_t IDR;
-    uint32_t ODR;
-    uint32_t BSRR;
-    uint32_t LCKR;
-    uint32_t AFRL;
-    uint32_t AFRH;
+    int roll_no;
+    char *name;
+    int marks;
+
+} student;
+
+int main(void)
+{
+    student s1;
+    s1.roll_no = 1;
+    s1.name = "Rahul";
+    s1.marks = 80;
+
+    printf("Size : %ld\n", sizeof(s1));
+    printf("Roll no : %d\n", s1.roll_no);
+    printf("Name : %s\n", s1.name);
+    printf("Marks : %d\n", s1.marks);
+    return 0;
+}
+#elif defined(STR_PAD)
+/*Structure Padding*/
+struct student
+{
+    char roll_no;
+    int name;
+    char marks;
+    short f;
+
+} __attribute__((packed));
+
+int main(void)
+{
+    struct student s1;
+    s1.roll_no = 1;
+    s1.name = "Rahul";
+    s1.marks = 80;
+
+    printf("Size : %ld\n", sizeof(struct student));
+    printf("Roll no : %d\n", s1.roll_no);
+    printf("Name : %s\n", s1.name);
+    printf("Marks : %d\n", s1.marks);
+    return 0;
+}
+#elif defined(STR_PACKET)
+struct Packet
+{
+
 };
 
 int main(void)
 {
-    struct GPIO *oGPIO = GPIOA;
-    printf("%p\n",oGPIO);
-    printf("%p\n",oGPIO.MODER);
-    printf("%p\n",oGPIO.OTYPER);
-       printf("%p\n",oGPIO.OSPEEDER);
+    
     return 0;
 }
+
+#endif

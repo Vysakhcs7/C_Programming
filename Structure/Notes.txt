@@ -26,3 +26,17 @@ struct student
     char name[20];
     int roll_no;
 }stu1,stu2;
+
+For efficiency the compiler generates instructions to store variables on their natural size bound addresses in the memory.
+This is also true for structures.Member elements of a sturcture are located on their natural size boundary. 
+
+char
+address 0403010 0403011 0403012 0403013 0403014 0403015
+
+short  
+address 0403010 0403012 0403014 0403016 0403018 040301A
+
+int
+address 0403010 0403014 0403018 040301C 0403020 0403024 
+
+typedef is used to give an alias name to primitive and user defined data type.
