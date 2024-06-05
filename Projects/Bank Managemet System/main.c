@@ -1,3 +1,22 @@
+//------------------------------------------------------------------------------------------------------------------
+// Program Flow:
+// 1. Start main function:
+//    - Open the "Customer Data.txt" file in append mode.
+//    - If the file cannot be opened, print an error message and terminate the program.
+//    - Call the `menu_display` function to display the main menu.
+//    - Close the file and terminate the program.
+// 2. The `menu_display` function displays the main menu options and takes user input for the choice.
+// 3. The `main_menu_select` function processes the user's choice from the main menu.
+// 4. Depending on the user's choice, corresponding functions are called:
+//    - `create_new_account`: Gather user details and write them to the file.
+//    - `account_login`: Allow user to log in using account number and then perform further actions 
+//      (deposit, withdraw, check balance, update account, view account details).
+//    - `account_search`, `remove_account`: Placeholder functions for future implementation.
+//    - `exit(0)`: Terminate the program.
+// 5. After performing the chosen operation, the `default_menu` function is called to prompt the user to return 
+//      to the main menu or exit.
+//------------------------------------------------------------------------------------------------------------------
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
