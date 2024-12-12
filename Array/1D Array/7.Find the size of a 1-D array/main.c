@@ -35,7 +35,7 @@ So the result of (char *)(ptr + 1) - (char *)(ptr) will be 12
 
 
 #include <stdio.h>
-#define RUN 1
+#define RUN 0
 int main()
 {
     int arr[3] = {1,2,3};
